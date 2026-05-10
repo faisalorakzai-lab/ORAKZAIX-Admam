@@ -1,0 +1,269 @@
+IMPORTANT:
+Now begin PHASE 3.
+
+Build the MAIN ORAKZAIX APPLICATION SHELL.
+
+DO NOT build full AI systems yet.
+DO NOT build trading execution yet.
+DO NOT build backend AI yet.
+
+ONLY build:
+
+- professional app shell
+- navigation system
+- workspace architecture
+- dynamic model switching UI
+
+This phase creates the CORE STRUCTURE of OrakzaiX.
+
+====================================================
+MAIN GOAL
+
+After successful Google login,
+users must enter the MAIN OrakzaiX interface.
+
+This should feel like:
+
+- Apple-level software
+- premium AI operating system
+- clean enterprise platform
+
+NOT:
+
+- admin dashboard template
+- crypto trading website
+- generic SaaS panel
+
+====================================================
+ACTIVE MODELS
+
+OrakzaiX contains 15 total models internally,
+BUT ONLY THESE 3 SHOULD APPEAR ACTIVE:
+
+1. Prompt AI
+2. Legal AI
+3. TradeMind AI
+
+Other models should appear:
+
+- disabled
+- “coming soon”
+- visually inactive
+
+====================================================
+APP STRUCTURE
+
+Create:
+
+/src/layouts/AppShell.jsx
+/src/components/sidebar/
+/src/components/topbar/
+/src/components/workspace/
+/src/components/modelcards/
+
+====================================================
+MAIN LAYOUT
+
+STRUCTURE:
+
+LEFT:
+Professional sidebar
+
+TOP:
+Minimal top navigation
+
+CENTER:
+Dynamic workspace area
+
+BACKGROUND:
+Subtle premium animated system
+
+====================================================
+SIDEBAR DESIGN
+
+Sidebar should feel:
+
+- minimal
+- floating
+- premium
+- enterprise-grade
+
+Style:
+
+- dark matte finish
+- subtle borders
+- smooth hover glow
+- soft active indicators
+
+====================================================
+SIDEBAR ITEMS
+
+ACTIVE:
+
+- Prompt AI
+- Legal AI
+- TradeMind AI
+
+COMING SOON:
+
+- Brand AI
+- Startup AI
+- Media AI
+- Emotional AI
+- Automation AI
+- Investor AI
+- etc.
+
+IMPORTANT:
+Only the first 3 are clickable.
+
+====================================================
+TOPBAR
+
+Topbar should include:
+
+- OrakzaiX logo
+- active model name
+- profile avatar
+- Google account info
+- smooth online status indicator
+
+Style:
+
+- clean
+- floating
+- subtle glass effect
+
+====================================================
+CENTER WORKSPACE
+
+This is the MOST IMPORTANT part.
+
+When user clicks:
+
+- Prompt AI
+- Legal AI
+- TradeMind AI
+
+The CENTER workspace should dynamically transform.
+
+NOT:
+
+- full page reloads
+- separate apps
+- hard transitions
+
+Use:
+smooth animated workspace transitions.
+
+====================================================
+WORKSPACE STATES
+
+PROMPT AI:
+
+- minimal business workspace
+- elegant prompt area
+- clean creative environment
+
+LEGAL AI:
+
+- structured legal drafting workspace
+- document-focused layout
+- premium editor feel
+
+TRADEMIND AI:
+
+- institutional trading workspace
+- premium financial terminal styling
+- professional market atmosphere
+
+IMPORTANT:
+Only UI MODE changes right now.
+NOT full backend functionality yet.
+
+====================================================
+TRADEMIND PREVIEW MODE
+
+TradeMind should preview:
+
+- trading terminal layout
+- market panels
+- chart placeholders
+- AI analysis panel
+- terminal atmosphere
+
+BUT:
+No real trading backend yet.
+
+====================================================
+ANIMATION SYSTEM
+
+Use Framer Motion carefully.
+
+Transitions must feel:
+
+- smooth
+- expensive
+- intentional
+- professional
+
+Avoid:
+
+- flashy motion
+- gaming effects
+- exaggerated scaling
+
+====================================================
+BACKGROUND SYSTEM
+
+Continue using:
+
+- subtle animated gradients
+- neural lighting
+- depth blur layers
+
+Keep everything:
+minimal and clean.
+
+====================================================
+RESPONSIVE DESIGN
+
+Desktop-first experience.
+
+Mobile:
+
+- collapsible sidebar
+- adaptive workspace
+- smooth transitions
+
+====================================================
+IMPORTANT UX RULE
+
+The app should feel like:
+a professional AI operating system.
+
+NOT:
+a crypto exchange clone.
+
+====================================================
+DO NOT BUILD YET
+
+DO NOT add:
+
+- AI APIs
+- chat systems
+- backend logic
+- real trading execution
+- subscriptions
+
+This phase is ONLY:
+architecture + workspace UX.
+
+====================================================
+COMMIT
+
+Branch:
+phase-3-app-shell
+
+Commit message:
+"Built OrakzaiX application shell and dynamic workspace system"
