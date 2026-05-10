@@ -4,7 +4,10 @@
   "buildCommand": "pnpm --filter @workspace/orakzaix run build",
   "outputDirectory": "artifacts/orakzaix/dist",
   "rewrites": [
-    { "source": "/(.*)", "destination": "/index.html" }
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
   ],
   "env": {
     "VERCEL": "1"
