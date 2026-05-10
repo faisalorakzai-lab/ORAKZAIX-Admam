@@ -1,0 +1,13 @@
+{
+  "name": "@workspace/integrations-openai-ai-react",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./audio": "./src/audio/index.ts"
+  },
+  "peerDependencies": {
+    "react": ">=18"
+  }
+}
