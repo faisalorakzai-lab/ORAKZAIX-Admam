@@ -269,7 +269,7 @@ export default function TradeMindWorkspace({ model }: { model: Model }) {
             <span style={{ fontSize: 9, color: "#0ED359", letterSpacing: "0.12em" }}>LIVE</span>
           </div>
         </div>
-      </div>v>
+      </div>
 
       {/* ── Content ── */}
       <div style={{ flex: 1, overflow: "auto", padding: "18px 22px 20px" }}>
@@ -341,7 +341,7 @@ export default function TradeMindWorkspace({ model }: { model: Model }) {
                 <div style={{ display: "flex", gap: 8 }}>
                   {BOTS.filter((b) => !b.market || b.market === activeMarket).map((b) => (
                     <button key={b.id} onClick={() => setActiveBot(b)}
-                      style={{ width: 28, height: 28, borderRadius: 7, border: `1px solid ${activeBot.id === b.id ? b.color + "60" : "rgba(255,255,255,0.08)"}", background: activeBot.id === b.id ? b.color + "18" : "transparent", color: activeBot.id === b.id ? b.color : "rgba(255,255,255,0.25)", fontSize: 12, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center" }}
+                      style={{ width: 28, height: 28, borderRadius: 7, border: `1px solid ${activeBot.id === b.id ? b.color + "60" : "rgba(255,255,255,0.08)"}`, background: activeBot.id === b.id ? b.color + "18" : "transparent", color: activeBot.id === b.id ? b.color : "rgba(255,255,255,0.25)", fontSize: 12, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center" }}
                       title={b.name}>
                       {b.icon}
                     </button>
