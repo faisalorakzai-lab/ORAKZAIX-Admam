@@ -1,0 +1,25 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "artifacts/api-server/src/app.ts",
+      "use": "@vercel/node"
+    },
+    {
+      "src": "artifacts/orakzaix/package.json",
+      "use": "@vercel/static-build",
+      "config": { "distDir": "dist" }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "artifacts/api-server/src/app.ts"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "artifacts/orakzaix/$1",
+      "continue": true
+    }
+  ]
+}
