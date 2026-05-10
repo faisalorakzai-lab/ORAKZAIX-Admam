@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "OrakzaiX"
+version = "1.0.0"
+id = "artifacts/orakzaix"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 21773
+
+[services.development]
+run = "pnpm --filter @workspace/orakzaix run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/orakzaix", "run", "build" ]
+publicDir = "artifacts/orakzaix/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "21773"
+BASE_PATH = "/"
