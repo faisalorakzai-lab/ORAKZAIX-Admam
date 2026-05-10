@@ -8,6 +8,11 @@ import NewsIntelligence from "./trademind/NewsIntelligence";
 import PortfolioIntelligence from "./trademind/PortfolioIntelligence";
 import StrategyBrain from "./trademind/StrategyBrain";
 import AIAnalyst from "./trademind/AIAnalyst";
+import MarketSwitcher, { type Market } from "./trademind/MarketSwitcher";
+import ForexScanner from "./trademind/ForexScanner";
+import ForexExecution from "./trademind/ForexExecution";
+import ForexRiskManager from "./trademind/ForexRiskManager";
+import ForexAnalyst from "./trademind/ForexAnalyst";
 
 interface Bot {
   id: string;
@@ -18,6 +23,7 @@ interface Bot {
   icon: string;
   status: "ACTIVE" | "IDLE" | "LIVE";
   stats: { label: string; value: string }[];
+  market?: "crypto" | "forex" | "indices" | "commodities";
 }
 
 const BOTS: Bot[] = [
@@ -30,6 +36,18 @@ const BOTS: Bot[] = [
     icon: "📡",
     status: "ACTIVE",
     stats: [{ label: "Assets", value: "10" }, { label: "Intervals", value: "6" }],
+    market: "crypto",
+  },
+  {
+    id: "forex-scanner",
+    name: "Forex Scanner",
+    tagline: "Multi-Asset Scanning",
+    description: "Scans forex pairs, commodities, and indices in real-time for volatility, liquidity zones, and session behavior.",
+    color: "#0ED359",
+    icon: "💱",
+    status: "ACTIVE",
+    stats: [{ label: "Pairs", value: "15+" }, { label: "Sessions", value: "3" }],
+    market: "forex",
   },
   {
     id: "execution",
@@ -40,6 +58,18 @@ const BOTS: Bot[] = [
     icon: "⚡",
     status: "LIVE",
     stats: [{ label: "Exchanges", value: "2" }, { label: "Mode", value: "Paper" }],
+    market: "crypto",
+  },
+  {
+    id: "forex-execution",
+    name: "Forex Execution",
+    tagline: "Paper · Assisted · Live",
+    description: "Execute forex trades with institutional risk controls. Paper trading, assisted execution, and live MT5 broker connections.",
+    color: "#1C69F0",
+    icon: "💼",
+    status: "ACTIVE",
+    stats: [{ label: "Modes", value: "3" }, { label: "Pairs", value: "20+" }],
+    market: "forex",
   },
   {
     id: "risk",
@@ -50,6 +80,18 @@ const BOTS: Bot[] = [
     icon: "🛡️",
     status: "ACTIVE",
     stats: [{ label: "Risk", value: "LOW" }, { label: "DD", value: "0%" }],
+    market: "crypto",
+  },
+  {
+    id: "forex-risk",
+    name: "Forex Risk Engine",
+    tagline: "Leverage · Drawdown · Lot Control",
+    description: "Institutional-grade forex risk management with leverage protection, drawdown limits, lot sizing, and emergency stop.",
+    color: "#F59E0B",
+    icon: "⚠️",
+    status: "ACTIVE",
+    stats: [{ label: "Controls", value: "4" }, { label: "Status", value: "Armed" }],
+    market: "forex",
   },
   {
     id: "news",
@@ -90,6 +132,18 @@ const BOTS: Bot[] = [
     icon: "📋",
     status: "IDLE",
     stats: [{ label: "Report Types", value: "3" }, { label: "AI", value: "Opus" }],
+    market: "crypto",
+  },
+  {
+    id: "forex-analyst",
+    name: "Forex Analyst",
+    tagline: "Structure · Liquidity · Sessions",
+    description: "Claude analyzes forex pairs with institutional focus on market structure, liquidity zones, session behavior, and macro impact.",
+    color: "#06B6D4",
+    icon: "📈",
+    status: "ACTIVE",
+    stats: [{ label: "Pairs", value: "20+" }, { label: "AI", value: "Opus" }],
+    market: "forex",
   },
 ];
 
@@ -172,10 +226,15 @@ const BOT_COMPONENTS: Record<string, React.ComponentType<{ color: string }>> = {
   portfolio: PortfolioIntelligence,
   strategy: StrategyBrain,
   analyst: AIAnalyst,
+  "forex-scanner": ForexScanner,
+  "forex-execution": ForexExecution,
+  "forex-risk": ForexRiskManager,
+  "forex-analyst": ForexAnalyst,
 };
 
 export default function TradeMindWorkspace({ model }: { model: Model }) {
   const [activeBot, setActiveBot] = useState<Bot | null>(null);
+  const [activeMarket, setActiveMarket] = useState<Market>("crypto");
 
   const BotComponent = activeBot ? BOT_COMPONENTS[activeBot.id] : null;
 
@@ -183,7 +242,7 @@ export default function TradeMindWorkspace({ model }: { model: Model }) {
     <div style={{ minHeight: "100%", display: "flex", flexDirection: "column" }}>
       <style>{`@keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}`}</style>
 
-      {/* ── Header ── */}
+       {/* Header ── */}
       <div style={{ padding: "18px 22px 14px", borderBottom: "1px solid rgba(255,255,255,0.05)", display: "flex", alignItems: "center", justifyContent: "space-between", flexShrink: 0 }}>
         <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
           {activeBot && (
@@ -203,11 +262,14 @@ export default function TradeMindWorkspace({ model }: { model: Model }) {
             )}
           </div>
         </div>
-        <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
-          <div style={{ width: 5, height: 5, borderRadius: "50%", background: "#0ED359", animation: "pulse 2s infinite" }} />
-          <span style={{ fontSize: 9, color: "#0ED359", letterSpacing: "0.12em" }}>LIVE</span>
+        <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+          {!activeBot && <MarketSwitcher activeMarket={activeMarket} onMarketChange={setActiveMarket} />}
+          <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+            <div style={{ width: 5, height: 5, borderRadius: "50%", background: "#0ED359", animation: "pulse 2s infinite" }} />
+            <span style={{ fontSize: 9, color: "#0ED359", letterSpacing: "0.12em" }}>LIVE</span>
+          </div>
         </div>
-      </div>
+      </div>v>
 
       {/* ── Content ── */}
       <div style={{ flex: 1, overflow: "auto", padding: "18px 22px 20px" }}>
@@ -226,7 +288,7 @@ export default function TradeMindWorkspace({ model }: { model: Model }) {
 
               {/* Bot grid */}
               <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: 12 }}>
-                {BOTS.map((bot, i) => (
+                {BOTS.filter((bot) => !bot.market || bot.market === activeMarket).map((bot, i) => (
                   <motion.div key={bot.id} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.05 }}>
                     <BotCard bot={bot} onOpen={() => setActiveBot(bot)} />
                   </motion.div>
@@ -236,13 +298,23 @@ export default function TradeMindWorkspace({ model }: { model: Model }) {
               {/* Bottom status bar */}
               <div style={{ marginTop: 20, padding: "12px 16px", borderRadius: 12, border: "1px solid rgba(255,255,255,0.06)", background: "rgba(255,255,255,0.01)", display: "flex", alignItems: "center", gap: 20, flexWrap: "wrap" }}>
                 <span style={{ fontSize: 10, color: "rgba(255,255,255,0.2)", textTransform: "uppercase", letterSpacing: "0.1em" }}>System Status</span>
-                {[
-                  { label: "Binance API", color: "#0ED359" },
-                  { label: "Bybit API", color: "#0ED359" },
-                  { label: "Claude AI", color: "#0ED359" },
-                  { label: "CMC Data", color: "#0ED359" },
-                  { label: "Fear & Greed", color: "#0ED359" },
-                ].map((s) => (
+                {activeMarket === "crypto"
+                  ? [
+                      { label: "Binance API", color: "#0ED359" },
+                      { label: "Bybit API", color: "#0ED359" },
+                      { label: "Claude AI", color: "#0ED359" },
+                      { label: "CMC Data", color: "#0ED359" },
+                      { label: "Fear & Greed", color: "#0ED359" },
+                    ]
+                  : [
+                      { label: "TwelveData API", color: "#0ED359" },
+                      { label: "MT5 Bridge", color: "#0ED359" },
+                      { label: "Claude AI", color: "#0ED359" },
+                      { label: "Forex Data", color: "#0ED359" },
+                      { label: "Risk Engine", color: "#0ED359" },
+                    ]
+                }
+                .map((s) => (
                   <div key={s.label} style={{ display: "flex", alignItems: "center", gap: 5 }}>
                     <div style={{ width: 5, height: 5, borderRadius: "50%", background: s.color }} />
                     <span style={{ fontSize: 10, color: "rgba(255,255,255,0.3)" }}>{s.label}</span>
@@ -267,9 +339,9 @@ export default function TradeMindWorkspace({ model }: { model: Model }) {
                   <p style={{ fontSize: 11, color: "rgba(255,255,255,0.25)", margin: "4px 0 0", paddingLeft: 28 }}>{activeBot.tagline}</p>
                 </div>
                 <div style={{ display: "flex", gap: 8 }}>
-                  {BOTS.map((b) => (
+                  {BOTS.filter((b) => !b.market || b.market === activeMarket).map((b) => (
                     <button key={b.id} onClick={() => setActiveBot(b)}
-                      style={{ width: 28, height: 28, borderRadius: 7, border: `1px solid ${activeBot.id === b.id ? b.color + "60" : "rgba(255,255,255,0.08)"}`, background: activeBot.id === b.id ? b.color + "18" : "transparent", color: activeBot.id === b.id ? b.color : "rgba(255,255,255,0.25)", fontSize: 12, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center" }}
+                      style={{ width: 28, height: 28, borderRadius: 7, border: `1px solid ${activeBot.id === b.id ? b.color + "60" : "rgba(255,255,255,0.08)"}", background: activeBot.id === b.id ? b.color + "18" : "transparent", color: activeBot.id === b.id ? b.color : "rgba(255,255,255,0.25)", fontSize: 12, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center" }}
                       title={b.name}>
                       {b.icon}
                     </button>
