@@ -1,6 +1,7 @@
 {
   "version": 2,
-  "buildCommand": "cd artifacts/orakzaix && npm install && npm run build",
+  "installCommand": "pnpm install --no-frozen-lockfile",
+  "buildCommand": "cd artifacts/orakzaix && pnpm run build",
   "outputDirectory": "artifacts/orakzaix/dist",
   "rewrites": [
     { "source": "/(.*)", "destination": "/index.html" }
