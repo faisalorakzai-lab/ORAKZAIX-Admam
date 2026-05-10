@@ -29,7 +29,7 @@ export default function App() {
     }
   };
 
-  const handleAuthSuccess = (_userData: { displayName: string | null; email: string | null; photoURL: string | null }) => {
+  const handleAuthSuccess = () => {
     setAppState("home");
   };
 
@@ -45,19 +45,12 @@ export default function App() {
           <SplashScreen key="splash" onComplete={handleSplashComplete} />
         )}
         {appState === "auth" && (
-          <AuthScreen
-            key="auth"
-            onAuthSuccess={handleAuthSuccess}
-          />
+          <AuthScreen key="auth" onAuthSuccess={handleAuthSuccess} />
         )}
         {appState === "home" && user && (
           <HomeScreen
             key="home"
-            user={{
-              displayName: user.displayName,
-              email: user.email,
-              photoURL: user.photoURL,
-            }}
+            user={{ displayName: user.displayName, email: user.email, photoURL: user.photoURL }}
             onSignOut={handleSignOut}
           />
         )}
