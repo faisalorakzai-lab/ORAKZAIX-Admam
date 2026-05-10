@@ -298,7 +298,7 @@ export default function TradeMindWorkspace({ model }: { model: Model }) {
               {/* Bottom status bar */}
               <div style={{ marginTop: 20, padding: "12px 16px", borderRadius: 12, border: "1px solid rgba(255,255,255,0.06)", background: "rgba(255,255,255,0.01)", display: "flex", alignItems: "center", gap: 20, flexWrap: "wrap" }}>
                 <span style={{ fontSize: 10, color: "rgba(255,255,255,0.2)", textTransform: "uppercase", letterSpacing: "0.1em" }}>System Status</span>
-                {activeMarket === "crypto"
+                {(activeMarket === "crypto"
                   ? [
                       { label: "Binance API", color: "#0ED359" },
                       { label: "Bybit API", color: "#0ED359" },
@@ -313,8 +313,7 @@ export default function TradeMindWorkspace({ model }: { model: Model }) {
                       { label: "Forex Data", color: "#0ED359" },
                       { label: "Risk Engine", color: "#0ED359" },
                     ]
-                }
-                .map((s) => (
+                ).map((s) => (
                   <div key={s.label} style={{ display: "flex", alignItems: "center", gap: 5 }}>
                     <div style={{ width: 5, height: 5, borderRadius: "50%", background: s.color }} />
                     <span style={{ fontSize: 10, color: "rgba(255,255,255,0.3)" }}>{s.label}</span>
