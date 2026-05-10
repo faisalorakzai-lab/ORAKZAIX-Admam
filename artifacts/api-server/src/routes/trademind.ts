@@ -65,7 +65,7 @@ function detectSignal(closes: number[], rsi: number, vol: number[], avgVol: numb
   return "NEUTRAL";
 }
 
-async function getBinanceAccount() {
+async function getBinanceAccount(): Promise<any> {
   const key = process.env.BINANCE_API_KEY;
   const secret = process.env.BINANCE_SECRET_KEY;
   if (!key || !secret) return null;
@@ -77,11 +77,11 @@ async function getBinanceAccount() {
       headers: { "X-MBX-APIKEY": key },
     });
     if (!r.ok) return null;
-    return r.json();
+    return r.json() as any;
   } catch { return null; }
 }
 
-async function getBybitBalance() {
+async function getBybitBalance(): Promise<any> {
   const key = process.env.BYBIT_API_KEY;
   const secret = process.env.BYBIT_SECRET_KEY;
   if (!key || !secret) return null;
@@ -94,7 +94,7 @@ async function getBybitBalance() {
       headers: { "X-BAPI-API-KEY": key, "X-BAPI-TIMESTAMP": ts, "X-BAPI-SIGN": sig, "X-BAPI-RECV-WINDOW": rw },
     });
     if (!r.ok) return null;
-    return r.json();
+    return r.json() as any;
   } catch { return null; }
 }
 
@@ -307,7 +307,7 @@ router.get("/trademind/news", async (req, res) => {
       try {
         const r = await fetch("https://api.alternative.me/fng/?limit=7");
         if (!r.ok) return null;
-        return r.json();
+        return r.json() as any;
       } catch { return null; }
     })(),
     (async () => {
@@ -316,7 +316,7 @@ router.get("/trademind/news", async (req, res) => {
         if (!k) return null;
         const r = await fetch("https://pro-api.coinmarketcap.com/v1/global-metrics/quotes/latest", { headers: { "X-CMC_PRO_API_KEY": k } });
         if (!r.ok) return null;
-        return r.json();
+        return r.json() as any;
       } catch { return null; }
     })(),
     (async () => {
@@ -325,7 +325,7 @@ router.get("/trademind/news", async (req, res) => {
         if (!k) return null;
         const r = await fetch("https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest?limit=10&sort=percent_change_24h&sort_dir=desc", { headers: { "X-CMC_PRO_API_KEY": k } });
         if (!r.ok) return null;
-        return r.json();
+        return r.json() as any;
       } catch { return null; }
     })(),
   ]);
@@ -420,7 +420,7 @@ Keep it precise and institutional. No generic advice.`;
 router.post("/trademind/analyst", async (req, res) => {
   const { reportType = "daily", assets = ["BTC", "ETH"] } = req.body as { reportType?: string; assets?: string[] };
   const prices = await Promise.all(assets.slice(0, 5).map((a) => binanceFetch(`${a}USDT`)));
-  const fng = await fetch("https://api.alternative.me/fng/?limit=1").then((r) => r.json()).catch(() => null);
+  const fng = await fetch("https://api.alternative.me/fng/?limit=1").then((r) => r.json() as any).catch(() => null);
   const fngVal = fng?.data?.[0];
 
   const mktCtx = assets.map((a, i) => prices[i] ? `${a}: $${prices[i]!.price.toLocaleString()} (${prices[i]!.change24h > 0 ? "+" : ""}${prices[i]!.change24h.toFixed(2)}% 24h)` : `${a}: N/A`).join("\n");
